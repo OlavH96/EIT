@@ -1,16 +1,17 @@
 const log = console.log;
 const app = new PIXI.Application({
-    width: screen.availWidth,         // default: 800
-    height: screen.availHeight - 130,        // default: 600
+    width: window.innerWidth,         // default: 800
+    height: window.innerHeight,        // default: 600
     antialias: true,    // default: false
     transparent: true, // default: false
     resolution: 1       // default: 1
 }
 );
+app.renderer.view.style.display = 'block';
 
 c = new Charm(PIXI);
 
-document.body.appendChild(app.view);
+document.getElementById('pixi-canvas-container').appendChild(app.view);
 
 let texture = PIXI.Texture.from('truck.svg');
 let truck = new PIXI.Sprite(new PIXI.Texture(texture));
@@ -89,3 +90,8 @@ function gameLoop() {
 }
 
 gameLoop()
+
+// Resize app canvas on window resize
+window.addEventListener("resize", function() {
+    app.renderer.resize(window.innerWidth, window.innerHeight);
+  });
